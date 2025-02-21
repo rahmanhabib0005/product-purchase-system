@@ -18,4 +18,14 @@ class Order extends Model
         'status',
         'notes'
     ];
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function costItems()
+    {
+        return $this->hasMany(CostItem::class, 'order_no', 'order_no');
+    }
 }

@@ -16,5 +16,8 @@ class CostItem extends Model
         'order_no'
     ];
 
-    
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

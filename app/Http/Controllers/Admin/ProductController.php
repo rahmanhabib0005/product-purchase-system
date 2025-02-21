@@ -32,7 +32,10 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create($request->validated());
+        $data = $request->validated();
+        $data['brand_id'] = 1;
+        $data['category_id'] = 1;
+        Product::create($data);
         return redirect()->route('admin.product.index')->with('success', 'Product created successfully');
     }
 
@@ -57,7 +60,11 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->validated());
+        $data = $request->validated();
+        $random_number_between_10 = rand(1, 10);
+        $data['brand_id'] = $random_number_between_10;
+        $data['category_id'] = $random_number_between_10;
+        $product->update($data);
         return redirect()->route('admin.product.index')->with('success', 'Product updated successfully');
     }
 

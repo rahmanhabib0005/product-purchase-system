@@ -14,4 +14,14 @@ class Product extends Model
         'name',
         'status'
     ];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class);
+    }
 }
