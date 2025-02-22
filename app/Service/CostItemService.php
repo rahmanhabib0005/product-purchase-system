@@ -13,6 +13,7 @@ class CostItemService
         $costItem->supplier_id = $data['supplier_id'];
         $costItem->qty = $data['qty'];
         $costItem->unit_price = $data['unit_price'];
+        $costItem->unit = 'PCS';
         $costItem->order_no = $data['order_no'];
         $costItem->save();
         return $costItem;

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->string('name')->nullable();
+            $table->string('code')->default('5100000001')->nullable();
             $table->tinyInteger('status')->default(1)->nullable();
             $table->foreign('brand_id')
                 ->references('id')

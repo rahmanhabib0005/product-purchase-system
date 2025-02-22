@@ -23,7 +23,8 @@ class OrderRequest extends FormRequest
     {
         return [
             'supplier_id' => 'required',
-            'notes' => 'required',
+            'date' => 'required',
+            // 'notes' => 'required',
         ];
     }
 }

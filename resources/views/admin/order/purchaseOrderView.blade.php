@@ -8,7 +8,8 @@
     <section class="section dashboard">
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <button class="btn btn-primary mb-3" onclick="printTable()">Print</button>
+                <div class="card" id="printableTable">
                     <div class="card-body">
                         <div class="d-flex justify-content-between pt-3">
                             <div>
@@ -24,7 +25,8 @@
 
                         <hr>
 
-                        <table class="table table-bordered">
+
+                        <table class="table table-bordered datatable">
                             <thead>
                                 <tr class="table-light">
                                     <th>S/L</th>
@@ -40,14 +42,14 @@
                             </thead>
                             <tbody>
                                 @php $total_qty = 0; @endphp
-                                @foreach ($order->CostItems as $cost)
+                                @foreach ($order->CostItems as $index => $cost)
                                     <tr>
-                                        <td>1</td>
+                                        <td>{{ $index + 1 }}</td>
                                         <td>{{ $cost->product->brand->name }}</td>
                                         <td>{{ $cost->product->category->name }}</td>
                                         <td>{{ $cost->product->name }}</td>
-                                        <td>5100000001</td>
-                                        <td>Pcs</td>
+                                        <td>{{ $cost->product->code }}</td>
+                                        <td>{{ $cost->unit }}</td>
                                         <td>{{ $cost->unit_price }}</td>
                                         <td>{{ $cost->qty }}</td>
                                         <td>{{ floatval($cost->qty) * floatval($cost->unit_price) }}</td>
@@ -70,6 +72,7 @@
                             </tbody>
                         </table>
 
+
                         <hr>
                         <div class="d-flex justify-content-between">
                             <div>
@@ -88,5 +91,17 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function printTable() {
+            var printContents = document.getElementById("printableTable").innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = "<html><head><title>Print</title></head><body>" + printContents + "</body></html>";
+            window.print();
+            document.body.innerHTML = originalContents;
+            location.reload();
+        }
+    </script>
 
 @endsection

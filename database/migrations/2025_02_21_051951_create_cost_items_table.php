@@ -18,6 +18,7 @@ return new class extends Migration
             $table->double('qty')->nullable();
             $table->double('unit_price')->nullable();
             $table->string('order_no')->nullable();
+            $table->string('unit')->nullable();
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')

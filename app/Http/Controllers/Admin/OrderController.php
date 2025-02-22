@@ -17,12 +17,31 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Order::with('supplier');
+
+
+        if ($request->has('supplier_id') && !empty($request->supplier_id)) {
+            $query->where('supplier_id', $request->supplier_id);
+        }
+
+        if ($request->has('start_date') && !empty($request->start_date)) {
+            $query->whereDate('date', '>=', $request->start_date);
+        }
+
+        if ($request->has('end_date') && !empty($request->end_date)) {
+            $query->whereDate('date', '<=', $request->end_date);
+        }
+
+        $orders = $query->get();
+
         return view('admin.order.index', [
-            'orders' => Order::with('supplier')->get()
+            'suppliers' => Supplier::all(),
+            'orders' => $orders
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -58,7 +77,6 @@ class OrderController extends Controller
                 (new CostItemService())->create($CartData);
             }
 
-            $data['date'] = now();
             $data['total'] = $total;
             //We can handle status via another table but I make it shortest
             $data['status'] = 1;

@@ -13,7 +13,8 @@ class CostItem extends Model
         'supplier_id',
         'qty',
         'unit_price',
-        'order_no'
+        'order_no',
+        'unit'
     ];
 
     public function product()

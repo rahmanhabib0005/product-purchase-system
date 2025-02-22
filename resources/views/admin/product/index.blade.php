@@ -14,7 +14,7 @@
         <div class="row">
             <h1>Products List</h1>
             <div class="d-flex justify-content-end">
-                <a href="{{ route('admin.product.create') }}" class="btn btn-primary">Add Products</a>
+                <a href="{{ route('admin.product.create') }}" class="btn btn-primary my-2">Add Products</a>
             </div>
             <table class="table datatable">
                 <thead>
@@ -53,8 +53,40 @@
         </div>
     </section>
 @endsection
+
 @push('js')
     <script>
-        let table = new DataTable('.datatable');
+        let table = new DataTable('.datatable', {
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'excel',
+                    text: 'Export to Excel',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
+                {
+                    extend: 'csv',
+                    text: 'Export to CSV',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    text: 'Export to PDF',
+                    exportOptions: {
+                        columns: [1, 2, 3]
+                    }
+                },
+                {
+                    extend: 'print',
+                    text: 'Print Table',
+                    exportOptions: {
+                        columns: ':not(:last-child)'
+                    }
+                }
+            ]
+        });
     </script>
 @endpush
